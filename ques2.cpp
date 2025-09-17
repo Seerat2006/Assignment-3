@@ -1,22 +1,29 @@
-#include <iostream>
-#include <string>
-using namespace std;
-
-#define SIZE 100
-char st[SIZE];
-int top = -1;
-
-void push(char c) { 
-    st[++top] = c; 
+void insertAtBottom(stack<int> &s, int element) {
+    if(s.empty()) {
+        s.push(element);
+      	return;
+    }
+    
+    int num = s.top();
+    s.pop();
+    
+    //recursive call
+    insertAtBottom(s, element);
+    
+    s.push(num);
 }
-char pop() { 
-    return st[top--];
- }
 
-int main() {
-    string s;
-    cin >> s;
-    for (int i = 0; i < s.length(); i++) push(s[i]);
-    for (int i = 0; i < s.length(); i++) cout<<pop();
-    return 0;
+void reverseStack(stack<int> &stack) {
+  	//base case
+    if(stack.empty()) {
+        return ;
+    }
+    
+    int num = stack.top();
+    stack.pop();
+    
+    //recursive call
+    reverseStack(stack);
+    
+    insertAtBottom(stack,num);
 }
