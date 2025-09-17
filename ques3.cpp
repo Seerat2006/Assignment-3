@@ -1,26 +1,32 @@
-#include <iostream>
-#include <stack>
-using namespace std;
-
-bool isBalanced(string s) {
-    stack<char> st;
-    for (char c : s) {
-        if (c == '(' || c == '{' || c == '[') st.push(c);
-        else if (c == ')' || c == '}' || c == ']') {
-            if (st.empty()) return false;
-            char t = st.top(); st.pop();
-            if ((c == ')' && t != '(') ||
-                (c == '}' && t != '{') ||
-                (c == ']' && t != '[')) return false;
-        }
-    }
-    return st.empty();
-}
-
-int main() {
-    string s;
-    cin >> s;
-    if (isBalanced(s)) cout << "Balanced";
-    else cout << "Not Balanced";
-    return 0;
+bool isValidParenthesis(string expression)
+{
+  	 stack<char> s;
+     for(int i=0; i<expression.length(); i++) {
+         
+         char ch = expression[i];
+             if(ch == '(' || ch == '{' || ch == '['){
+             s.push(ch);
+         }
+         else{
+             if(!s.empty()) {
+                  char top = s.top();
+                  if( (ch == ')' && top == '(') || 
+                     ( ch == '}' && top == '{') || 
+                     (ch == ']' && top == '[') ) {
+                      s.pop();
+                  }
+                 else{
+                     return false;
+                 }
+             }
+             else{
+                 return false;
+             } 
+         }  
+     }
+    
+    if(s.empty())
+        return true;
+    else
+        return false;
 }
